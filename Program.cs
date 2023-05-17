@@ -8,21 +8,26 @@ namespace ApiClient
 {
     class Program
     {
-        // class Item
-        // {
-        //     public string[] message { get; set; }
-        //     public string status { get; set; }
-        // }
+        class Item
+        {
+            public string type { get; set; }
+            public string setup { get; set; }
+            public string punchline { get; set; }
+            public int id { get; set; }
+        }
         static async Task Main(string[] args)
         {
             var client = new HttpClient();
 
-            var responseAsStream = await client.GetStreamAsync("https://dog.ceo/api/breed/australian/list");
+            var responseAsStream = await client.GetStreamAsync("https://official-joke-api.appspot.com/random_joke");
 
             var items = await JsonSerializer.DeserializeAsync<Item>(responseAsStream);
 
 
-            Console.WriteLine($"The following dogs fall under this category : {items.message}");
+            Console.WriteLine($"Joke number {items.id} is {items.setup}");
+            Console.WriteLine($"{items.punchline}");
+
+
 
         }
     }
